@@ -5,5 +5,4 @@ class User < ApplicationRecord
   validates :phone_number, presence: true, uniqueness: true
   validates :username, allow_blank: true, length: { in: 3..25 }
 
-
-end  
+end

@@ -10,14 +10,14 @@ class Group < ApplicationRecord
   end
 
   private
-    def add_creator_to_group
-      self.users << self.creator
-      self.make_admin(self.creator)
-    end
 
-    def make_admin(user)
-      self.group_members.find_by(user: user).update(admin: true)
-    end
+  def add_creator_to_group
+    users << creator
+    make_admin(creator)
+  end
 
+  def make_admin(user)
+    group_members.find_by(user: user).update(admin: true)
+  end
 
 end

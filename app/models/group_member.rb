@@ -1,18 +1,17 @@
 class GroupMember < ApplicationRecord
-    belongs_to :group
-    belongs_to :user
+  belongs_to :group
+  belongs_to :user
 
-    after_destroy :clean_up
+  after_destroy :handle_member_leaving
 
-    private
-        def clean_up
-            if group.members.empty?
-                group.destroy
-            else
-                if self.group.admins.empty?
-                    # If there are no admins, set oldest member to admin
-                    self.group.members.order(created_at: :asc).first.update(admin: true)
-                end
-            end
-        end
+  private
+
+  def handle_member_leaving
+    if group.users.empty?
+      group.destroy
+    else
+      # If there are no admins, set oldest member to admin
+      group.group_members.order(created_at: :asc).first.update(admin: true) if group.admins.empty?
+    end
+  end
 end

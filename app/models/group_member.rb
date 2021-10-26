@@ -1,6 +1,7 @@
 class GroupMember < ApplicationRecord
   belongs_to :group
   belongs_to :user
+  has_many :messages
 
   after_destroy :handle_member_leaving
 

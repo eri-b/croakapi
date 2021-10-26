@@ -1,4 +1,16 @@
 {
-    "editor.tabSize": 2,
-    "ruby.rubocop.configFilePath": "./rubocop.yml"
+"editor.tabSize": 2,
+"ruby.lint": {
+    "rubocop": {
+      "forceExclusion": true,
+    }
+  },
+// If not specified searches for 'rubocop' executable available on PATH (default and recommended)
+"ruby.rubocop.executePath": "",
+
+// If not specified, it assumes a null value by default.
+"ruby.rubocop.configFilePath": ".rubocop.yml",
+
+// default true
+"ruby.rubocop.onSave": true
 }

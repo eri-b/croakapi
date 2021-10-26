@@ -16,6 +16,14 @@ class Api::V1::GroupsController < ApplicationController
   # POST /api/v1/groups
   def create
     @group = Group.new(group_params)
+    
+    if params[:group][:dm]
+      # check that the dm doesn't already exist
+      other_user = User.find(params[:other_user])
+      creator = User.find(params[:group][:creator])
+      # Look in GroupMember table for a match
+         
+    end
 
     if @group.save
       render json: @group, status: :created, location: @group
@@ -39,6 +47,7 @@ class Api::V1::GroupsController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_group
       @group = Group.find(params[:id])
@@ -46,6 +55,6 @@ class Api::V1::GroupsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def group_params
-      params.fetch(:group, {})
+      params.require(:group).permit(:name, :creator, :dm)
     end
 end

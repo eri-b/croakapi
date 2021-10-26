@@ -1,8 +1,10 @@
 class Group < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   validates :name, allow_blank: true, length: { in: 2..25 }
+  validates :dm, presence: true
   has_many :group_members
   has_many :users, through: :group_members
+  has_many :messages
   after_create :add_creator_to_group
 
   def admins

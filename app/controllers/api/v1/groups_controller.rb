@@ -1,5 +1,6 @@
 class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
+  include GroupHelper
 
   # GET /api/v1/groups
   def index
@@ -17,12 +18,14 @@ class Api::V1::GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     
+    # prevent duplicate dms
     if params[:group][:dm]
-      # check that the dm doesn't already exist
-      other_user = User.find(params[:other_user])
-      creator = User.find(params[:group][:creator])
-      # Look in GroupMember table for a match
-         
+      u1 = params[:group][:creator] #id of the creator
+      u2 = params[:other] # id of the other user
+
+      return if Group.dm_exists?(u1, u2)
+
+      @group.update(dm_look_up: dm_look_up(u1, u2))
     end
 
     if @group.save

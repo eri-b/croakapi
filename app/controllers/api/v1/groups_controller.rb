@@ -22,7 +22,13 @@ class Api::V1::GroupsController < ApplicationController
     if params[:group][:dm]
       u1 = params[:group][:creator] #id of the creator
       u2 = params[:other] # id of the other user
+      
+      # option 1 no table
+      groups_with_creator = GroupMember.where(user_id: u1).pluck(:group_id)
+      users_in_these_groups = GroupMember.where(group_id: groups_with_creator).pluck(:user_id)
+      return if users_in_these_groups.includes? u2
 
+      # option 2 need table or row
       return if Group.dm_exists?(u1, u2)
 
       @group.update(dm_look_up: dm_look_up(u1, u2))

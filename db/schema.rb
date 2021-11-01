@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_213300) do
+ActiveRecord::Schema.define(version: 2021_11_01_220345) do
+
+  create_table "dm_members", force: :cascade do |t|
+    t.integer "dm_member1"
+    t.integer "dm_member2"
+    t.integer "group_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dm_member1", "dm_member2"], name: "index_dm_members_on_dm_member1_and_dm_member2", unique: true
+    t.index ["dm_member1"], name: "index_dm_members_on_dm_member1"
+    t.index ["dm_member2"], name: "index_dm_members_on_dm_member2"
+    t.index ["group_id"], name: "index_dm_members_on_group_id"
+  end
 
   create_table "group_members", force: :cascade do |t|
     t.integer "group_id", null: false
@@ -26,10 +38,11 @@ ActiveRecord::Schema.define(version: 2021_10_27_213300) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.integer "creator_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "dm"
+    t.string "dm_lookup"
+    t.integer "creator_id"
     t.index ["creator_id"], name: "index_groups_on_creator_id"
   end
 
@@ -52,9 +65,9 @@ ActiveRecord::Schema.define(version: 2021_10_27_213300) do
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
   end
 
+  add_foreign_key "dm_members", "groups"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "users", column: "creator_id"
   add_foreign_key "messages", "group_members"
   add_foreign_key "messages", "groups"
 end

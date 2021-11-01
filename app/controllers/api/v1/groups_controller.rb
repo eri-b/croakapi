@@ -27,7 +27,7 @@ class Api::V1::GroupsController < ApplicationController
       u1_groups = GroupMember.where(user_id: u1).pluck(:group_id)
       u2_groups = GroupMember.where(user_id: u2).pluck(:group_id)
       intersection = u1_groups & u2_groups
-      if intersection.exists?
+      unless intersection.empty?
         is_group_dm = Group.where(id: intersection, dm: true).exists?
         return if is_group_dm
       end

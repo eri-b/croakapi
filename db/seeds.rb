@@ -13,27 +13,27 @@ DmMember.destroy_all
 Group.destroy_all
 User.destroy_all
 
-User.create(username: "Zidane", phone_number: "123456", verified: true)
-User.create(username: "Modric", phone_number: "223456", verified: true)
-User.create(username: "Ronaldinho", phone_number: "223456", verified: true)
+User.create!(username: "Zidane", phone_number: "123456", verified: true)
+User.create!(username: "Modric", phone_number: "223456", verified: true)
+User.create!(username: "Ronaldinho", phone_number: "22399456", verified: true)
 
-Group.create(name: "Zidane's Group", creator: User.first, dm: false)
-Group.create(creator: User.first, dm: true, dm_lookup: [User.first.id, User.second.id])
-Group.create(name: "Ron's group", dm: false, creator_id: User.third)
+Group.create!(name: "Zidane's Group", creator: User.first, dm: false)
+Group.create!(creator: User.first, dm: true, dm_lookup: [User.first.id, User.second.id])
+Group.create!(name: "Ron's group", dm: false, creator: User.third)
 
 # Group between Zidane and Modric
-GroupMember.create(user: User.first, group: Group.first)
-GroupMember.create(user: User.second, group: Group.first)
+GroupMember.create!(user: User.first, group: Group.first)
+GroupMember.create!(user: User.second, group: Group.first)
 
 # DM between Zidane and Modric
-GroupMember.create(user: User.first, group: Group.second)
-GroupMember.create(user: User.second, group: Group.second)
+GroupMember.create!(user: User.first, group: Group.second)
+GroupMember.create!(user: User.second, group: Group.second)
 
-DmMember.create(dm_member1: User.first, dm_member2: User.second, group: Group.second)
+DmMember.create!(dm_member1: User.first, dm_member2: User.second, group: Group.second)
 
 # Big Group
-GroupMember.create(user: User.first, group: Group.third)
-GroupMember.create(user: User.second, group: Group.third)
-GroupMember.create(user: User.third, group: Group.third)
+GroupMember.create!(user: User.first, group: Group.third)
+GroupMember.create!(user: User.second, group: Group.third)
+GroupMember.create!(user: User.third, group: Group.third)
 
 

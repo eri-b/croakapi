@@ -2,7 +2,7 @@ class Group < ApplicationRecord
   #include GroupHelper
   belongs_to :creator, class_name: 'User', optional: true
   validates :name, allow_blank: true, length: { in: 2..25 }
-  validates :dm, presence: true
+  validates :dm, inclusion: { in: [true, false] }
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
   has_many :messages

@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_01_220345) do
+ActiveRecord::Schema.define(version: 2021_11_02_220004) do
 
   create_table "dm_members", force: :cascade do |t|
-    t.integer "dm_member1"
-    t.integer "dm_member2"
-    t.integer "group_id"
+    t.integer "dm_member1_id"
+    t.integer "dm_member2_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["dm_member1", "dm_member2"], name: "index_dm_members_on_dm_member1_and_dm_member2", unique: true
-    t.index ["dm_member1"], name: "index_dm_members_on_dm_member1"
-    t.index ["dm_member2"], name: "index_dm_members_on_dm_member2"
+    t.integer "group_id", null: false
+    t.index ["dm_member1_id", "dm_member2_id"], name: "index_dm_members_on_dm_member1_id_and_dm_member2_id", unique: true
+    t.index ["dm_member1_id"], name: "index_dm_members_on_dm_member1_id"
+    t.index ["dm_member2_id"], name: "index_dm_members_on_dm_member2_id"
     t.index ["group_id"], name: "index_dm_members_on_group_id"
   end
 

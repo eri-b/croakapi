@@ -35,7 +35,10 @@ class Api::V1::GroupsController < ApplicationController
       # option 2 need table or row
       return if Group.dm_exists?(u1, u2)
 
-      @group.update(dm_look_up: dm_look_up(u1, u2))
+      # option 3
+      return if DmMember.where(dm_member1: u1, dm_member2: u2) || DmMember.where(dm_member1: u2, dm_member2: u1)
+
+      @group.update(dm_look_up: [u1, u2].sort)
     end
 
     if @group.save

@@ -8,6 +8,7 @@ class Group < ApplicationRecord
   has_many :messages
   serialize :dm_lookup, Array
   
+  before_create :check_reverse_dm
   after_create :add_creator_to_group
 
   def admins
@@ -19,17 +20,20 @@ class Group < ApplicationRecord
   end
 
   # arr of 2 user ids
-  def self.find_dm(u1, u2)
-    arr = [u1, u2].sort
+  def self.find_dm(u1_id, u2_id)
+    arr = [u1_id, u2_id].sort
     Group.find_by(dm_lookup: arr)
   end
 
-  def self.find_dm2(u1, u2)
-    a = DmMember.where(dm_member1: u1, dm_member2: u2).or.where(dm_member1: u2, dm_member2: u1)
-    return a.group if a.exists?
+  def self.find_dm2(u1_id, u2_id)
+    a = DmMember.where(dm_member1_id: u1_id, dm_member2_id: u2_id).or(DmMember.where(dm_member1_id: u2_id, dm_member2_id: u1_id)).first
+    return a.group unless a.nil?
   end
 
   private
+  def check_reverse_dm
+    # stop if this is a dupe
+  end
 
   # given two users does a DM exist
   def check_for_duplicate_dm

@@ -25,7 +25,7 @@ class Group < ApplicationRecord
   def dupe_dm?
     return unless dm # not a dm, no need to check
 
-    if self.find_dm(dm_lookup.first, dm_lookup.second)
+    if Group.find_dm(dm_lookup.first, dm_lookup.second)
       errors.add(:dm_lookup, 'is a dupe')
     end
   end

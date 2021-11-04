@@ -20,17 +20,12 @@ Group.create!(name: "Zidane's Group", creator: User.first, dm: false)
 Group.create!(creator: User.first, dm: true, dm_lookup: [User.first.id, User.second.id])
 Group.create!(name: "Ron's group", dm: false, creator: User.third)
 
-# Group between Zidane and Modric
-GroupMember.create!(user: User.first, group: Group.first)
-GroupMember.create!(user: User.second, group: Group.first)
+# do not add creator to group manually (autoadded in group.rb)
+# do not add users to dm group manually (autoadded in group.rb)
 
-# DM between Zidane and Modric
-GroupMember.create!(user: User.first, group: Group.second)
-GroupMember.create!(user: User.second, group: Group.second)
+# Group between Zidane and Modric
+GroupMember.create!(user: User.second, group: Group.first)
 
 # Big Group
 GroupMember.create!(user: User.first, group: Group.third)
 GroupMember.create!(user: User.second, group: Group.third)
-GroupMember.create!(user: User.third, group: Group.third)
-
-

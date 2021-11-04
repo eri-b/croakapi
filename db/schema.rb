@@ -10,19 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_220004) do
-
-  create_table "dm_members", force: :cascade do |t|
-    t.integer "dm_member1_id"
-    t.integer "dm_member2_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "group_id", null: false
-    t.index ["dm_member1_id", "dm_member2_id"], name: "index_dm_members_on_dm_member1_id_and_dm_member2_id", unique: true
-    t.index ["dm_member1_id"], name: "index_dm_members_on_dm_member1_id"
-    t.index ["dm_member2_id"], name: "index_dm_members_on_dm_member2_id"
-    t.index ["group_id"], name: "index_dm_members_on_group_id"
-  end
+ActiveRecord::Schema.define(version: 2021_11_04_213954) do
 
   create_table "group_members", force: :cascade do |t|
     t.integer "group_id", null: false
@@ -65,7 +53,6 @@ ActiveRecord::Schema.define(version: 2021_11_02_220004) do
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
   end
 
-  add_foreign_key "dm_members", "groups"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "messages", "group_members"

@@ -9,7 +9,6 @@
 # GroupMember.destroy_all # should be destroyed via User.destroy_all
 
 Message.destroy_all
-DmMember.destroy_all
 Group.destroy_all
 User.destroy_all
 
@@ -28,8 +27,6 @@ GroupMember.create!(user: User.second, group: Group.first)
 # DM between Zidane and Modric
 GroupMember.create!(user: User.first, group: Group.second)
 GroupMember.create!(user: User.second, group: Group.second)
-
-DmMember.create!(dm_member1: User.first, dm_member2: User.second, group: Group.second)
 
 # Big Group
 GroupMember.create!(user: User.first, group: Group.third)

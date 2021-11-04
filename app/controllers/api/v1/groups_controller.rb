@@ -17,29 +17,6 @@ class Api::V1::GroupsController < ApplicationController
   # POST /api/v1/groups
   def create
     @group = Group.new(group_params)
-    
-    # prevent duplicate dms
-    if params[:group][:dm]
-      u1 = params[:group][:creator] #id of the creator
-      u2 = params[:other] # id of the other user
-      
-      # option 1 no table
-      u1_groups = GroupMember.where(user_id: u1).pluck(:group_id)
-      u2_groups = GroupMember.where(user_id: u2).pluck(:group_id)
-      intersection = u1_groups & u2_groups
-      unless intersection.empty?
-        is_group_dm = Group.where(id: intersection, dm: true).exists?
-        return if is_group_dm
-      end
-
-      # option 2 need table or row
-      return if Group.dm_exists?(u1, u2)
-
-      # option 3
-      return if DmMember.where(dm_member1: u1, dm_member2: u2) || DmMember.where(dm_member1: u2, dm_member2: u1)
-
-      @group.update(dm_look_up: [u1, u2].sort)
-    end
 
     if @group.save
       render json: @group, status: :created, location: @group

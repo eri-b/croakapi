@@ -12,9 +12,13 @@ Message.destroy_all
 Group.destroy_all
 User.destroy_all
 
-User.create!(username: "Zidane", phone_number: "123456", verified: true, status: "chillin")
-User.create!(username: "Modric", phone_number: "223456", verified: true, status: "brb")
-User.create!(username: "Ronaldinho", phone_number: "22399456", verified: true, status: "vibin")
+User.create!(username: "Zidane", phone_number: "123456", verified: true)
+User.create!(username: "Modric", phone_number: "223456", verified: true)
+User.create!(username: "Ronaldinho", phone_number: "22399456", verified: true)
+
+Status.create!(user: User.first, body: "Available")
+Status.create!(user: User.second, body: "Vibing")
+Status.create!(user: User.third, body: "Chilling.")
 
 Group.create!(name: "Zidane's Group", creator: User.first, dm: false)
 Group.create!(creator: User.first, dm: true, dm_lookup: [User.first.id, User.second.id])

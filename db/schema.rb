@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_07_211217) do
+ActiveRecord::Schema.define(version: 2021_11_04_213954) do
 
   create_table "group_members", force: :cascade do |t|
     t.integer "group_id", null: false
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 2021_11_07_211217) do
     t.boolean "verified", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "status"
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
   end
 

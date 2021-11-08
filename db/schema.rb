@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_08_170214) do
+ActiveRecord::Schema.define(version: 2021_11_08_201341) do
 
   create_table "group_members", force: :cascade do |t|
     t.integer "group_id", null: false
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_11_08_170214) do
 
   create_table "users", force: :cascade do |t|
     t.string "phone_number"
-    t.string "username"
+    t.string "nickname"
     t.boolean "verified", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

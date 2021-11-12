@@ -1,6 +1,5 @@
 class Api::V1::GroupsController < ApplicationController
   before_action :set_group, only: [:show, :update, :destroy]
-  include GroupHelper
 
   # GET /api/v1/groups
   def index

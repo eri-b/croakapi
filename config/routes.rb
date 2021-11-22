@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :users
       resources :groups
       resources :group_members
+      resources :statuses
       # think about :status and whether it should be nested
       # also think about whether :group_members should be nested
     end
